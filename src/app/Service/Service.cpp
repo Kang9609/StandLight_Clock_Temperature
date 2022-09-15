@@ -11,6 +11,18 @@ Service::~Service()
 
 }
 
+void Service::updateTempHumid(DHT_Data dhtData)
+{
+    float temp;
+    temp = dhtData.Temp + (float)(dhtData.TempDec/10.0);
+    if(temp >= 27)
+    {
+        lightState = LIGHT_OFF;
+        view->setState(lightState);
+    }
+}
+
+
 void Service::updateState(std::string strState)
 {
     switch (lightState)

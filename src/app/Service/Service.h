@@ -6,6 +6,7 @@
 #include <string>
 #include "View.h"
 #include "LightState.h"
+#include "DHT_data.h"
 
 
 
@@ -20,6 +21,7 @@ public:
     Service(View *viewer);
     virtual ~Service();
     void updateState(std::string strState);
+    void updateTempHumid(DHT_Data dhtData);
 };
 
 #endif

@@ -70,7 +70,7 @@ void View::lightOn_2()
     char buff[30];
     sprintf(buff, "Light 2  ");
     lcd->WriteStringXY(0,0, buff);
-    light1->Off();
+    light1->On();
     light2->On();
     light3->Off();
     light4->Off();
@@ -82,8 +82,8 @@ void View::lightOn_3()
     char buff[30];
     sprintf(buff, "Light 3  ");
     lcd->WriteStringXY(0,0, buff);
-    light1->Off();
-    light2->Off();
+    light1->On();
+    light2->On();
     light3->On();
     light4->Off();
     light5->Off();
@@ -94,9 +94,9 @@ void View::lightOn_4()
     char buff[30];
     sprintf(buff, "Light 4  ");
     lcd->WriteStringXY(0,0, buff);
-    light1->Off();
-    light2->Off();
-    light3->Off();
+    light1->On();
+    light2->On();
+    light3->On();
     light4->On();
     light5->Off();
 }
@@ -106,10 +106,10 @@ void View::lightOn_5()
     char buff[30];
     sprintf(buff, "Light 5  ");
     lcd->WriteStringXY(0,0, buff);
-    light1->Off();
-    light2->Off();
-    light3->Off();
-    light4->Off();
+    light1->On();
+    light2->On();
+    light3->On();
+    light4->On();
     light5->On();
 }
 
@@ -120,7 +120,6 @@ void View::lightOff()
     sprintf(buff, "Light OFF");
     lcd->WriteStringXY(0,0, buff);
     lcd->backLightOff();
-
     light1->Off();
     light2->Off();
     light3->Off();
