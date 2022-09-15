@@ -1,10 +1,11 @@
 #include "Controller.h"
 
-Controller::Controller(Service *serv, ClockService *clockServ)
+Controller::Controller(Service *serv, ClockService *clockServ, TempHumidService * tempHumidServ)
 {
-    service = serv;
-    clockService = clockServ;
-    lightState = LIGHT_OFF;
+    this->service = serv;
+    this->clockService = clockServ;
+    this->tempHumidService = tempHumidServ;
+    this->lightState = LIGHT_OFF;
 
 }
 
@@ -27,4 +28,9 @@ void Controller::updateEvent(std::string strBtn)
     {   
         clockService->updateEvent();      // ("clockUpdate") = 1초 간격으로 신호 => 없어도 된다
     }
+}
+
+void Controller::updateTempHumid(DHT_Data dhtData)
+{
+    tempHumidService->updateTempHumid(dhtData);
 }

@@ -12,6 +12,9 @@
 #include "ClockService.h"
 #include "ClockCheck.h"
 #include "I2C.h"
+#include "DHT11.h"
+#include "TempHumidService.h"
+#include "TempHumidView.h"
 
 int main()
 {
@@ -27,18 +30,30 @@ int main()
     Led led3(23);
     Led led4(24);
     Led led5(25);
+    DHT11 dht(7);
+    DHT_Data dhtData;
     LCD lcd(new I2C("/dev/i2c-1", 0x27));
     View view(&led1, &led2, &led3, &led4, &led5, &lcd);
+    TempHumidView tempHumidView(&lcd);
     ClockView clockView(&lcd);
     Service service(&view);
     ClockService clockService(&clockView);
-    Controller control(&service, &clockService);
-    Listener listener(&modeButton, &powerButton, &control, &clockCheck);
+    TempHumidService tempHumidService(&tempHumidView);
+    Controller control(&service, &clockService,&tempHumidService);
+    Listener listener(&modeButton, &powerButton, &control, &clockCheck, &dht);
     
+    
+
     while (1)
     {
         listener.checkEvent();
         view.lightView();
+        // dhtData = dht.readData();
+        // if (dhtData.error == 0)
+        // {
+        //     std::cout << "humidity : "<< dhtData.RH << "." <<dhtData.RHDec <<"% "
+        //     << "Temperarture : " << dhtData.Temp << "." <<dhtData.TempDec << std::endl;
+        // }
         // timeSec = time(NULL);
         // timedata = localtime(&timeSec);
         // std::cout << "timeSec : " << timeSec << std::endl;
@@ -46,7 +61,7 @@ int main()
         //           << timedata->tm_min << ":"
         //           << timedata->tm_sec << std::endl;
 
-         delay(50);
+         delay(100);
 
     }
 
